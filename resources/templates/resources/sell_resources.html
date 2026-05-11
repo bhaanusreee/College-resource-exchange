@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resources for Sale</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'resources/style.css' %}">
+    <style>
+        .price {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2ecc71;
+            background: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        .buy-button {
+            background: #2ecc71;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .buy-button:hover {
+            background: #27ae60;
+        }
+        .filter-buttons {
+            margin-bottom: 20px;
+        }
+        .filter-buttons a {
+            margin-right: 10px;
+            padding: 8px 16px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .filter-buttons a:hover {
+            background: #2980b9;
+        }
+        .filter-buttons a.active {
+            background: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h1>Resources for Sale</h1>
+            <div>
+                <a href="/accounts/login/">Login</a>
+                <a href="/register/">Register</a>
+                <a href="/profile/">Profile</a>
+                <a href="/upload/">Upload Resource</a>
+            </div>
+        </div>
+
+        <div class="filter-buttons">
+            <a href="/" class="{% if not request.GET.action_type %}active{% endif %}">All Resources</a>
+            <a href="/?action_type=Sell" class="{% if request.GET.action_type == 'Sell' %}active{% endif %}">For Sale</a>
+            <a href="/?action_type=Donate" class="{% if request.GET.action_type == 'Donate' %}active{% endif %}">Donations</a>
+            <a href="/?action_type=Exchange" class="{% if request.GET.action_type == 'Exchange' %}active{% endif %}">Exchange</a>
+            <a href="/?action_type=Request" class="{% if request.GET.action_type == 'Request' %}active{% endif %}">Requests</a>
+        </div>
+
+        {% for resource in resources %}
+            <div class="card">
+                <h2>{{ resource.title }}</h2>
+                <p>{{ resource.description }}</p>
+                <p><strong>Category:</strong> {{ resource.category }}</p>
+                <p><strong>Condition:</strong> {{ resource.condition }}</p>
+                <p><strong>Seller:</strong> {{ resource.owner.username }}</p>
+                <p><strong>Posted:</strong> {{ resource.created_at|date:"M d, Y" }}</p>
+                
+                {% if resource.price %}
+                    <div class="price">Price: ${{ resource.price }}</div>
+                {% endif %}
+                
+                {% if resource.image %}
+                    <img src="{{ resource.image.url }}" width="200" style="margin: 10px 0;">
+                {% endif %}
+                
+                <div style="margin-top: 15px;">
+                    <a href="/resource/{{ resource.pk }}/" class="buy-button">View Details</a>
+                    {% if user.is_authenticated and user != resource.owner %}
+                        <a href="/resource/{{ resource.pk }}/request/" class="buy-button" style="background: #e74c3c;">Contact Seller</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% empty %}
+            <div class="card">
+                <h2>No Resources for Sale</h2>
+                <p>There are currently no resources available for purchase.</p>
+                {% if user.is_authenticated %}
+                    <a href="/upload/" class="buy-button">Upload a Resource</a>
+                {% else %}
+                    <a href="/accounts/login/" class="buy-button">Login to Upload</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html> 

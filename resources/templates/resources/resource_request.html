@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Request Resource</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'resources/style.css' %}">
+</head>
+<body>
+    <h1>Request Resource: {{ resource.title }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Send Request</button>
+    </form>
+    <br><a href="/resource/{{ resource.id }}/">Back to resource</a>
+</body>
+</html> 

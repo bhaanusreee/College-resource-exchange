@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'resources/style.css' %}">
+</head>
+<body>
+    <div class="container" style="display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh;">
+        <h1>Your Profile</h1>
+        <div class="card">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Save</button>
+            </form>
+        </div>
+        <br><a href="/">Back to list</a>
+    </div>
+</body>
+</html> 

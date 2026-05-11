@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Request Board</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'resources/style.css' %}">
+</head>
+<body>
+    <h1>Request Board</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Post Request</button>
+    </form>
+    <h2>Requests</h2>
+    {% for post in posts %}
+        <div>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.description }}</p>
+            <p>By: {{ post.user.username }}</p>
+        </div>
+    {% empty %}
+        <p>No requests found.</p>
+    {% endfor %}
+    <br><a href="/">Back to list</a>
+</body>
+</html> 
