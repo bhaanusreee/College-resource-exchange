@@ -23,5 +23,36 @@ A Django web app for students to share, sell, donate, or exchange college resour
 
 ### 1. Clone and enter the project
 
-```bash
-cd college_resource_exchange
+
+##2. Virtual environment (recommended)
+python -m venv venv
+Windows:
+
+venv\Scripts\activate
+macOS / Linux:
+
+source venv/bin/activate
+3. Install dependencies
+pip install "Django>=3.2,<4" Pillow
+4. Database and admin user
+python manage.py migrate
+python manage.py createsuperuser
+5. Run the development server
+python manage.py runserver
+Open http://127.0.0.1:8000/ for the app and http://127.0.0.1:8000/admin/ for Django admin.
+
+Project layout
+Path	Role
+manage.py
+Django entrypoint
+college_resource_exchange/
+Project settings and root URLs
+resources/
+Main app: models, views, templates, static files
+media/
+Uploaded images (created/used at runtime)
+Configuration notes
+Debug is enabled in settings.py for local development only. For production, set DEBUG = False, configure ALLOWED_HOSTS, and use a strong SECRET_KEY from environment variables—not the default key in the repo.
+Do not commit db.sqlite3 or media/ uploads to a public repository if they contain personal data; add them to .gitignore for shared repos.
+License
+Specify your license here (e.g. MIT) or remove this section if the project is private coursework.
