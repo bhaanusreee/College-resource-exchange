@@ -61,6 +61,14 @@ Open http://127.0.0.1:8000/ for the app and http://127.0.0.1:8000/admin/ for Dja
 | resources/                  | Main app: models, views, templates, static  |
 | media/                      | Uploaded images (created at runtime)        |
 
+# Screenshots
+
+<img width="1897" height="901" alt="image" src="https://github.com/user-attachments/assets/5036d649-2bdc-4c6c-aa29-4415ca25f9f5" />
+
+
+<img width="1894" height="904" alt="image" src="https://github.com/user-attachments/assets/986fb101-9b56-4775-9fb2-aad1e05de15d" />
+
+
 ## Configuration notes
 
 - Debug is enabled in settings.py for local development only. For production, set DEBUG = False, configure ALLOWED_HOSTS, and use a strong SECRET_KEY from environment variables — not the default key in the repo.
